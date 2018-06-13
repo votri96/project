@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  content: MyText
+  image: MyString
+  create_by: MyString
+  update_by: MyString
+  viewcount: 1
+  showonhome: false
+  category1: one
+  category2: one
+
+two:
+  name: MyString
+  content: MyText
+  image: MyString
+  create_by: MyString
+  update_by: MyString
+  viewcount: 1
+  showonhome: false
+  category1: two
+  category2: two

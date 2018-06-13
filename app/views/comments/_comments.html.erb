@@ -1,0 +1,12 @@
+ <div class="post-grids">
+    <h4><% @user=comment.user %><%= @user.username%></h4>	
+    <p class="comments"><%= comment.updated_at %></p>
+    <p class="text"><%= comment.content %> </p>
+    <% if user_signed_in? %>
+    <% if comment.user_id == current_user.id %>
+    <%= link_to '', tin_comment_path(comment.tin, comment), method: :delete, data: { confirm: 'Delete comment?' },
+                  class: 'glyphicon glyphicon-trash text-danger', id: "#{comment.id}_delete", remote: true,
+                  title: 'Delete comment', rel: 'tooltip' %>
+     <% end %>
+     <% end %>
+</div>

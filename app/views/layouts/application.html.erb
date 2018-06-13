@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Project</title>
+  <%= csrf_meta_tags %>
+  <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  <script type="text/javascript">
+    jQuery(document).ready(function($) {
+      $(".scroll").click(function(event){     
+        event.preventDefault();
+        $('html,body').animate({scrollTop:$(this.hash).offset().top},900);
+    });
+  });
+</script>
+</head>
+<body>
+  <div class="header" id="home">
+   <div class="content white">
+    <nav class="navbar navbar-default" role="navigation">
+     <div class="container">
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="<%= root_path %>"><h1>News<span> good</span></h1> </a>
+  </div>
+  <!--/.navbar-header-->
+  <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <ul class="nav navbar-nav">
+     <% @category1s.each do |category1| %>
+     <li><%= link_to category1.name, category1_path(category1) %></li>
+     <% end %>
+     <li><%= link_to "Phản hồi", new_contact_path %></li>
+ </ul>
+ <ul class="nav navbar-nav navbar-right">
+    <% if user_signed_in? %>
+    <li class="dropdown">
+      <a href="#" class="dropdown-toggle" data-toggle="dropdown"><%=  current_user.username%><b class="caret"></b></a>
+      <ul class="dropdown-menu">
+        <% if current_user.role_id == 1 || current_user.id == 2 %>
+        <li><%= link_to "Page Admin", admin_path %></li>
+        <% end %>
+        <li><%= link_to "Edit profile", edit_user_path(current_user), :class => 'navbar-link' %></li>
+        <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
+    </ul>
+</li>
+<% else %>
+<li><%= link_to "Sign up", new_user_path, :class => 'navbar-link'  %></li>
+<li><%= link_to "Login", new_user_session_path, :class => 'navbar-link'  %></li>
+<% end %>
+</ul>
+</div>
+<!--/.navbar-collapse-->
+<!--/.navbar-->
+</div>
+</nav>
+</div>
+</div>
+<div>
+</div>
+<!-- /Header -->
+<div class="main-content">
+ <div class="container">
+    <div class="mag-inner">
+        <div class="col-md-8 mag-innert-left">
+            <%= yield %>
+        </div>
+        <div class="col-md-4 mag-inner-right">
+          <div class="connect">
+            <h4 class="side" style="color: #fff" >STAY CONNECTED</h4>
+            <ul class="stay">
+                <li class="c5-element-facebook"><a href="#"><span class="icon"></span><h5>700</h5><span class="text">Followers</span></a></li>
+                <li class="c5-element-twitter"><a href="#"><span class="icon1"></span><h5>201</h5><span class="text">Followers</span></a></li>
+                <li class="c5-element-gg"><a href="#"><span class="icon2"></span><h5>111</h5><span class="text">Followers</span></a></li>
+                <li class="c5-element-dribble"><a href="#"><span class="icon3"></span><h5>99</h5><span class="text">Followers</span></a></li>
+            </ul>
+        </div>
+<h4 class="side" style="color: #fff">Popular Posts</h4>
+<div class="edit-pics">
+<% @tin_hots.each do |top_hot| %>
+  <div class="editor-pics">
+   <div class="col-md-3 item-pic">
+     <%= image_tag top_hot.image.url, class: "img-responsive" %>
+ </div>
+ <div class="col-md-9 item-details">
+    <h5 class="inner two"><%= link_to top_hot.name, tin_path(top_hot) %></h5>
+    <div class="td-post-date two"><i class="glyphicon glyphicon-time"></i><%= top_hot.created_at %><a href="#"><i class="glyphicon glyphicon-comment"></i><%= top_hot.viewcount %></a></div>
+</div>
+<div class="clearfix"></div>
+</div>
+<% end %>
+</div>
+<!--//edit-pics-->
+<!--/top-news-->
+<div class="top-news">
+   <h4 class="side" style="color: #fff">Top News</h4>
+   <div class="top-inner">
+   <% @tin_news.each do |tin_new| %>
+       <div class="editor-pics">
+   <div class="col-md-3 item-pic">
+     <%= image_tag tin_new.image.url, class: "img-responsive" %>
+ </div>
+ <div class="col-md-9 item-details">
+    <h5 class="inner two"><%= link_to tin_new.name, tin_path(tin_new) %></h5>
+    <div class="td-post-date two"><i class="glyphicon glyphicon-time"></i><%= tin_new.created_at %><a href="#"><i class="glyphicon glyphicon-comment"></i><%= tin_new.viewcount %></a></div>
+</div>
+<div class="clearfix"></div>
+</div>
+  <% end %>
+   </div>
+</div>
+
+<div class="top-news">
+   <h4 class="side" style="color: #fff">Top Views</h4>
+   <div class="top-inner">
+   <% @tin_views.each do |tin_view| %>
+       <div class="editor-pics">
+   <div class="col-md-3 item-pic">
+     <%= image_tag tin_view.image.url, class: "img-responsive" %>
+ </div>
+ <div class="col-md-9 item-details">
+    <h5 class="inner two"><%= link_to tin_view.name, tin_path(tin_view) %></h5>
+    <div class="td-post-date two"><i class="glyphicon glyphicon-time"></i><%= tin_view.created_at %><a href="#"><i class="glyphicon glyphicon-comment"></i><%= tin_view.viewcount %></a></div>
+</div>
+<div class="clearfix"></div>
+</div>
+  <% end %>
+   </div>
+</div>
+<!--//top-news-->
+</div>
+<div class="clearfix"></div>
+</div>
+<!--//end-mag-inner-->
+<!--/mag-bottom-->
+
+<footer class="page-footer font-small unique-color-dark pt-0">
+  <div style="background-color: #6351ce;">
+    <div class="container">
+      <!--Grid row-->
+      <div class="row py-4 d-flex align-items-center">
+
+        <!--Grid column-->
+        <div class="col-md-6 col-lg-5 text-center text-md-left mb-4 mb-md-0">
+          <h6 class="mb-0 white-text">Get connected with us on social networks!</h6>
+      </div>
+      <!--Grid column-->
+
+      <!--Grid column-->
+      <div class="col-md-6 col-lg-7 text-center text-md-right">
+          <!--Facebook-->
+          <a class="fb-ic ml-0">
+            <i class="fa fa-facebook white-text mr-lg-4"> </i>
+        </a>
+        <!--Twitter-->
+        <a class="tw-ic">
+            <i class="fa fa-twitter white-text mr-lg-4"> </i>
+        </a>
+        <!--Google +-->
+        <a class="gplus-ic">
+            <i class="fa fa-google-plus white-text mr-lg-4"> </i>
+        </a>
+        <!--Linkedin-->
+        <a class="li-ic">
+            <i class="fa fa-linkedin white-text mr-lg-4"> </i>
+        </a>
+        <!--Instagram-->
+        <a class="ins-ic">
+            <i class="fa fa-instagram white-text mr-lg-4"> </i>
+        </a>
+    </div>
+    <!--Grid column-->
+
+</div>
+<!--Grid row-->
+</div>
+</div>
+
+<!--Footer Links-->
+<div class="container mt-5 mb-4 text-center text-md-left">
+    <div class="row mt-3">
+
+      <!--First column-->
+      <div class="col-md-3 col-lg-4 col-xl-3 mb-4">
+        <h6 class="text-uppercase font-weight-bold">
+          <strong>Company name</strong>
+      </h6>
+      <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+      <p>Here you can use rows and columns here to organize your footer content. Lorem ipsum dolor sit
+          amet, consectetur adipisicing elit.</p>
+      </div>
+      <!--/.First column-->
+
+      <!--Second column-->
+      <div class="col-md-2 col-lg-2 col-xl-2 mx-auto mb-4">
+          <h6 class="text-uppercase font-weight-bold">
+            <strong>Products</strong>
+        </h6>
+        <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+        <p>
+            <a href="#!">MDBootstrap</a>
+        </p>
+        <p>
+            <a href="#!">MDWordPress</a>
+        </p>
+        <p>
+            <a href="#!">BrandFlow</a>
+        </p>
+        <p>
+            <a href="#!">Bootstrap Angular</a>
+        </p>
+    </div>
+    <!--/.Second column-->
+
+    <!--Third column-->
+    <div class="col-md-3 col-lg-2 col-xl-2 mx-auto mb-4">
+      <h6 class="text-uppercase font-weight-bold">
+        <strong>Useful links</strong>
+    </h6>
+    <hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+    <p>
+        <a href="#!">Your Account</a>
+    </p>
+    <p>
+        <a href="#!">Become an Affiliate</a>
+    </p>
+    <p>
+        <a href="#!">Shipping Rates</a>
+    </p>
+    <p>
+        <a href="#!">Help</a>
+    </p>
+</div>
+<!--/.Third column-->
+
+<!--Fourth column-->
+<div class="col-md-4 col-lg-3 col-xl-3">
+  <h6 class="text-uppercase font-weight-bold">
+    <strong>Contact</strong>
+</h6>
+<hr class="deep-purple accent-2 mb-4 mt-0 d-inline-block mx-auto" style="width: 60px;">
+<p>
+    <i class="fa fa-home mr-3"></i> New York, NY 10012, US</p>
+    <p>
+      <i class="fa fa-envelope mr-3"></i> info@example.com</p>
+      <p>
+        <i class="fa fa-phone mr-3"></i> + 01 234 567 88</p>
+        <p>
+          <i class="fa fa-print mr-3"></i> + 01 234 567 89</p>
+      </div>
+      <!--/.Fourth column-->
+
+  </div>
+</div>
+<!--/.Footer Links-->
+
+<!-- Copyright-->
+<div class="footer-copyright py-3 text-center">
+  © 2018 Copyright:
+  <a href="https://mdbootstrap.com/material-design-for-bootstrap/">
+    <strong> MDBootstrap.com</strong>
+</a>
+</div>
+<!--/.Copyright -->
+
+</footer>
+<!--//end-footer-section-->
+<!--/start-copyright-section-->
+<div class="copyright">
+    <p>&copy; 2015 Motive Mag. All Rights Reserved | Design by <a href="http://w3layouts.com/">W3layouts</a> </p>
+</div>
+
+
+<!--start-smoth-scrolling-->
+<script type="text/javascript">
+    $(document).ready(function() {
+                                        /*
+                                        var defaults = {
+                                            containerID: 'toTop', // fading element id
+                                            containerHoverID: 'toTopHover', // fading element hover id
+                                            scrollSpeed: 1200,
+                                            easingType: 'linear' 
+                                        };
+                                        */
+        $().UItoTop({ easingType: 'easeOutQuart' });
+                                        
+    });
+</script>
+<a href="#home" id="toTop" class="scroll" style="display: block;"> <span id="toTopHover" style="opacity: 1;"> </span></a>
+</body>
+</html>

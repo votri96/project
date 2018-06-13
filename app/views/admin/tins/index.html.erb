@@ -1,0 +1,65 @@
+<%= js extend_gritter :position => "bottom_right" %>
+
+
+<% if flash[:notice] %>
+
+  <%= js add_gritter(flash[:notice], :image => :success, :nodom_wrap  => true) %>
+
+<% elsif flash[:error] %>
+
+  <%= js add_gritter(flash[:error], :image => :error, :title => "Error", :nodom_wrap  => true) %>
+
+<% end %>
+
+
+<h1>Tins</h1>
+
+<%= link_to 'New Tin', new_admin_tin_path , class: "btn btn-success"%>
+<br>
+
+<table class="table table-bordered table-striped table-condensed table-responsive">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Title</th>
+      <th>Image</th>
+      <th>Create by</th>
+      <th>Update by</th>
+      <th>Viewcount</th>
+      <th>Showonhome</th>
+      <th>Tophot</th>
+      <th>Category1</th>
+      <th>Category2</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @tins.each do |tin| %>
+      <tr>
+        <td><%= tin.name %></td>
+        <td><%= tin.title %></td>
+        <td><%= image_tag tin.image.url, style: "max-width: 200px; max-height: 200px" %></td>
+        <td><%= tin.create_by %></td>
+        <td><%= tin.update_by %></td>
+        <td><%= tin.viewcount %></td>
+        <td><%= tin.showonhome %></td>
+        <td><%= tin.tophot %></td>
+        <td><%= tin.category1.name %></td>
+        <td><%= tin.category2.name %></td>
+        <% if can? :read, tin %>
+        <td><%= link_to 'Show', admin_tin_path(tin), class: "btn-sm btn-primary" %></td>
+        <% end %>
+        <% if can? :update, tin %>
+        <td><%= link_to 'Edit', edit_admin_tin_path(tin), class: "btn-sm btn-primary" %></td>
+        <% end %>
+        <% if can? :destroy, tin %>
+        <td><%= link_to 'Destroy', admin_tin_path(tin), class: "btn-sm btn-primary", method: :delete, data: { confirm: 'Are you sure?' } %>
+          <% end %>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @tins %>
+<br>

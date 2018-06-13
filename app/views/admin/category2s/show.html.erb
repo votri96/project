@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @category2.name %>
+</p>
+
+<p>
+  <strong>Category1:</strong>
+  <%= @category2.category1.name %>
+</p>
+
+<%= link_to 'Edit', edit_admin_category2_path(@category2), class: "btn btn-success" %> |
+<%= link_to 'Back', admin_category2s_path, class: "btn btn-success" %>

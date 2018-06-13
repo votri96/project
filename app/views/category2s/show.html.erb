@@ -1,0 +1,16 @@
+<div class="latest-articles">
+  <div class="world-news-grids">
+  <div class="row">    
+    <% @tins.each do |tin| %>
+      <div class="world-news-grid col-md-4">
+      <a href="<%= tin_path(tin) %>"><%= image_tag tin.image.url, class: "img-responsive" %></a>
+      <a href="<%= tin_path(tin) %>" class="wd"><%= tin.name %></a>
+      <a href="<%= tin_path(tin) %>"><p><%= tin.title %></p></a>
+      <a class="read" href="<%= tin_path(tin) %>">Read More</a>
+    </div>
+    <% end %>
+    </div>
+    <%= paginate @tins %>
+    </div>
+</div>
+  

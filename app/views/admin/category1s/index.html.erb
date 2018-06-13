@@ -1,0 +1,43 @@
+<%= js extend_gritter :position => "bottom_right" %>
+
+
+<% if flash[:notice] %>
+
+  <%= js add_gritter(flash[:notice], :image => :success, :nodom_wrap  => true) %>
+
+<% elsif flash[:error] %>
+
+  <%= js add_gritter(flash[:error], :image => :error, :title => "Error", :nodom_wrap  => true) %>
+
+<% end %>
+
+<h1>Category1s</h1>
+
+<table class="table table-bordered table-striped table-condensed table-responsive">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Showonhome</th>
+      <th>Displayorder</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @category1s.each do |category1| %>
+      <tr>
+        <td><%= category1.name %></td>
+        <td><%= category1.showonhome %></td>
+        <td><%= category1.displayorder %></td>
+        <td><%= link_to 'Show', admin_category1_path(category1) , class: "btn-sm btn-primary"%></td>
+        <td><%= link_to 'Edit', edit_admin_category1_path(category1), class: "btn-sm btn-primary" %></td>
+        <td><%= link_to 'Destroy', admin_category1_path(category1), class: "btn-sm btn-primary", method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+<%= paginate @category1s %>
+
+<br>
+
+<%= link_to 'New Category1', new_admin_category1_path, class: "btn btn-success" %>

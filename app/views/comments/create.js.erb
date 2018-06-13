@@ -1,0 +1,3 @@
+var comments_list = $('#comments-list');
+comments_list.append('<%= escape_javascript(render partial: "comments/comments", collection: @comments, as: :comment) %>');
+$('#comment-form').html('<%= escape_javascript(render('comments/comment_form')) %>');

@@ -1,0 +1,54 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Name:</strong>
+  <%= @tin.name %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @tin.content.html_safe %>
+</p>
+
+<p>
+  <strong>Image:</strong>
+  <%= image_tag @tin.image.url, style: "max-width: 200px; max-height: 200px" %>
+</p>
+
+<p>
+  <strong>Create by:</strong>
+  <%= @tin.create_by %>
+</p>
+
+<p>
+  <strong>Update by:</strong>
+  <%= @tin.update_by %>
+</p>
+
+<p>
+  <strong>Viewcount:</strong>
+  <%= @tin.viewcount %>
+</p>
+
+<p>
+  <strong>Showonhome:</strong>
+  <%= @tin.showonhome %>
+</p>
+
+<p>
+  <strong>Tophot:</strong>
+  <%= @tin.tophot %>
+</p>
+
+<p>
+  <strong>Category1:</strong>
+  <%= @tin.category1.name %>
+</p>
+
+<p>
+  <strong>Category2:</strong>
+  <%= @tin.category2.name %>
+</p>
+
+<%= link_to 'Edit', edit_admin_tin_path(@tin), class: "btn btn-success" %> |
+<%= link_to 'Back', admin_tins_path, class: "btn btn-success" %>

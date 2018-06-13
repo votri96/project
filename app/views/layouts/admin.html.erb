@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ProjectDemo</title>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+  <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+          <%= link_to 'Page Admin', admin_path, class: "navbar-brand" %>
+        </div>
+        <ul class="nav navbar-nav">
+          <% if can? :read, Category1 %>
+          <li><%= link_to 'Category1', admin_category1s_path %></li>
+          <% end %>
+          <% if can? :read, Category2 %>
+          <li><%= link_to 'Category2', admin_category2s_path %></li>
+          <% end %>
+          <% if can? :read, Role %>
+          <li><%= link_to 'Role', admin_roles_path %></li>
+          <% end %>
+          <% if can? :read, User %>
+          <li><%= link_to 'User', admin_users_path %></li>
+          <% end %>
+          <% if can? :read, Tin %>
+          <li><%= link_to 'Tin', admin_tins_path %></li>
+          <% end %>
+          <% if can? :read, Tag %>
+          <li><%= link_to 'Tag', admin_tags_path %></li>
+          <% end %>
+          <% if can? :read, Tagdetail %>
+          <li><%= link_to 'Tagdetail', admin_tagdetails_path %></li>
+          <% end %>
+          <% if can? :read, Contact %>
+          <li><%= link_to 'Contact', admin_contacts_path %></li>
+          <% end %>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to( current_user) %></li>
+          <li><%= link_to('Logout', destroy_user_session_path, method: :delete) %></li>
+        </ul>
+      </div>
+    </nav>
+    <div class="container">
+        <%= yield %>
+    </div>
+  </body>
+</html>
